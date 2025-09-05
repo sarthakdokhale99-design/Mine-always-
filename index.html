@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>💖 A Special Message for You 💖</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+      background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradientBG 10s ease infinite;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .intro {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .intro h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      animation: heartbeat 2s infinite;
+    }
+
+    .intro button {
+      padding: 15px 40px;
+      font-size: 1.2em;
+      border: none;
+      border-radius: 25px;
+      background: #ff69b4;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+
+    .intro button:hover {
+      background: #ff85c1;
+      transform: scale(1.1);
+    }
+
+    .content {
+      display: none;
+      padding: 30px;
+      text-align: center;
+      color: white;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .typing {
+      display: inline-block;
+      border-right: 2px solid white;
+      white-space: nowrap;
+      overflow: hidden;
+      font-size: 1.4em;
+      animation: typing 4s steps(50) 1 forwards, blink 0.7s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    @keyframes blink {
+      50% { border-color: transparent }
+    }
+
+    .heart {
+      font-size: 4em;
+      animation: heartbeat 1s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .quote {
+      font-style: italic;
+      margin: 20px;
+      font-size: 1.4em;
+    }
+
+    .button {
+      background: #fff;
+      color: #ff4081;
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-size: 1.2em;
+      text-decoration: none;
+      transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+      display: inline-block;
+      margin: 10px;
+    }
+
+    .button:hover {
+      background: #ffe6ec;
+      transform: scale(1.1);
+    }
+
+    /* Glowing YES Button */
+    .glow {
+      box-shadow: 0 0 20px #ff85c1, 0 0 40px #ff4081, 0 0 60px #ff85c1;
+      animation: glowPulse 1.5s infinite alternate;
+    }
+    @keyframes glowPulse {
+      from { box-shadow: 0 0 10px #ff85c1; }
+      to { box-shadow: 0 0 30px #ff4081, 0 0 50px #ff85c1; }
+    }
+
+    /* Falling petals */
+    .petal {
+      position: fixed;
+      font-size: 20px;
+      animation: fall 6s linear forwards;
+      opacity: 0.8;
+      z-index: 5;
+    }
+    @keyframes fall {
+      0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* Popup message after YES */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0.5);
+      background: rgba(255,255,255,0.95);
+      color: #ff4081;
+      font-size: 1.5em;
+      padding: 20px 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px rgba(255,64,129,0.5);
+      animation: popupScale 1s ease forwards;
+      z-index: 20;
+      text-align: center;
+    }
+
+    @keyframes popupScale {
+      to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    }
+
+    /* Heart explosion */
+    .heart-burst {
+      position: fixed;
+      font-size: 30px;
+      animation: burst 1s forwards;
+      opacity: 0;
+    }
+    @keyframes burst {
+      0% { transform: scale(0); opacity: 1; }
+      100% { transform: scale(4); opacity: 0; }
+    }
+
+    /* Music Button */
+    .music-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: rgba(255,255,255,0.6);
+      border: none;
+      border-radius: 50%;
+      padding: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      backdrop-filter: blur(5px);
+      z-index: 20;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Intro Screen -->
+  <div class="intro" id="intro">
+    <h1>💘 I Have Something Special to Tell You 💘</h1>
+    <button onclick="startProposal()">Start 💖</button>
+  </div>
+
+  <!-- Proposal Content -->
+  <div class="content" id="content">
+    <div class="heart">💖💘💝💞💕</div>
+    <h1>Hey Beautiful 😍</h1>
+    <p class="typing" id="loveNote"></p>
+
+    <h2>💐 Will You Be Mine? 💐</h2>
+
+    <p class="quote">"You are the poem I never knew how to write, and this life is the story I’ve always wanted to tell with you." — lines by famous writer Tyler Knott Gregson</p>
+    <p class="quote">"I have to Say Something. that I have huge crush on you from long period. But I am afraid to share my feelings to you.
+
+Because, you a,re gorgeous you are Goddess you wee absolutely a Princess and I am nothing in front of you." 💘</p>
+
+    <p>You're the sparkle in my eyes ✨, the smile on my lips 😊, and the beat in my heart 💓.</p>
+
+    <h2> Meri dhadkan tumhin, saansein bhi
+Bas kehta hai tumse yahi
+"Meri banogi kya? Meri rahogi kya?"
+Poochhe dil mera tumse yahi
+Meri banogi kya? Meri rahogi kya? 🥺👉👈</h2>
+
+    <a class="button glow" href="#" onclick="sayYes()">💖 YES 💖</a>
+    <a class="button" href="#">🥺 Maybe? 🥺</a>
+
+    <audio id="romanticMusic" autoplay loop>
+      <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+    </audio>
+  </div>
+
+  <!-- Popup message -->
+  <div class="popup" id="popup">💖 You just made my entire world brighter 💖</div>
+
+  <!-- Music Button -->
+  <button class="music-btn" onclick="toggleMusic()">🎵</button>
+
+  <script>
+    const emojis = ["✨", "💖", "💕", "💘", "💓", "💞", "🌸"];
+    const petals = ["🌸","💮","🌷","🌹","🥀","🌺"];
+    const container = document.body;
+
+    function startProposal() {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("content").style.display = "block";
+      document.getElementById("romanticMusic").play();
+      typeLoveNote("I’ve been meaning to tell you something really special... 💌");
+      generatePetals();
+    }
+
+    function typeLoveNote(text) {
+      let i = 0;
+      const element = document.getElementById("loveNote");
+      element.textContent = "";
+      const interval = setInterval(() => {
+        element.textContent += text[i];
+        i++;
+        if (i >= text.length) clearInterval(interval);
+      }, 50);
+    }
+
+    function generatePetals() {
+      setInterval(() => {
+        let petal = document.createElement("div");
+        petal.classList.add("petal");
+        petal.textContent = petals[Math.floor(Math.random() * petals.length)];
+        petal.style.left = Math.random() * 100 + "vw";
+        petal.style.fontSize = (Math.random() * 20 + 15) + "px";
+        container.appendChild(petal);
+        setTimeout(() => petal.remove(), 6000);
+      }, 400);
+    }
+
+    function toggleMusic() {
+      let music = document.getElementById("romanticMusic");
+      if (music.paused) music.play();
+      else music.pause();
+    }
+
+    function sayYes() {
+      createHeartBurst();
+      let popup = document.getElementById("popup");
+      popup.style.display = "block";
+      setTimeout(() => {
+        window.location.href = "https://instagram.com/sarthak_96k_patil";
+      }, 3500);
+    }
+
+    function createHeartBurst() {
+      for (let i = 0; i < 10; i++) {
+        let heart = document.createElement("div");
+        heart.classList.add("heart-burst");
+        heart.textContent = "💖";
+        heart.style.left = (50 + (Math.random() * 40 - 20)) + "vw";
+        heart.style.top = (50 + (Math.random() * 40 - 20)) + "vh";
+        container.appendChild(heart);
+        setTimeout(() => heart.remove(), 1000);
+      }
+    }
+  </script>
+
+</body>
+</html>
